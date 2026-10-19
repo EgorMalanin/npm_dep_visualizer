@@ -1,0 +1,10 @@
+{
+    "package_name": "react",
+    "repository_url": "https://registry.npmjs.org/",
+    "test_mode": true,
+    "test_file": "tests/test_repo.txt",
+    "version": "18.2.0",
+    "max_depth": 3,
+    "filter_substring": "dev",
+    "output_file": "react_graph.svg"
+}
