@@ -22,9 +22,23 @@
 - `filter_substring` — подстрока для фильтрации
 - `output_file` — имя выходного файла с графом
 
+
+## Этап 2. Сбор данных
+
+Реализовано получение информации о зависимостях npm-пакетов
+через HTTP-запросы к npm registry.
+
+### Функции
+
+- `fetch_package_info()` — получение данных о пакете из npm registry
+- `extract_dependencies()` — извлечение списка прямых зависимостей
+- `format_dependencies_list()` — форматирование вывода зависимостей
+
 ### Запуск
 
 ```bat
 .\run.bat config.json
-python src\main.py config.json
+.\run.bat tests\config_valid.json
 .\tests\test_config.bat
+.\tests\test_fetch.bat
+
