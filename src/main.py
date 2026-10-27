@@ -12,6 +12,11 @@ from parser import (
     format_dependencies_list,
 )
 
+MIN_ARGS_COUNT = 2
+CONFIG_PATH_INDEX = 1
+EXIT_SUCCESS = 0
+EXIT_FAILURE = 1
+
 
 def print_parameters(config: Dict[str, Any]) -> None:
     """
@@ -48,11 +53,11 @@ def fetch_and_display(
 
 def main() -> None:
     """Главная функция приложения."""
-    if len(sys.argv) < 2:
+    if len(sys.argv) < MIN_ARGS_COUNT:
         print("Usage: python src/main.py <config.json>")
-        sys.exit(1)
+        sys.exit(EXIT_FAILURE)
 
-    config_path = sys.argv[1]
+    config_path = sys.argv[CONFIG_PATH_INDEX]
 
     try:
         config = prepare_config(config_path)
@@ -60,7 +65,7 @@ def main() -> None:
         fetch_and_display(config)
     except ConfigError as e:
         print(f"[ERROR] {e}")
-        sys.exit(1)
+        sys.exit(EXIT_FAILURE)
 
 
 if __name__ == '__main__':
