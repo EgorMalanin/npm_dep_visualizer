@@ -18,9 +18,6 @@ def fetch_and_display(
 ) -> None:
     """
     Получает и выводит зависимости пакета.
-
-    Args:
-        config: Словарь с параметрами конфигурации.
     """
     package_name = config['package_name']
     version = config['version']
