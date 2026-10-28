@@ -12,32 +12,21 @@ from parser import (
     format_dependencies_list,
 )
 
-MIN_ARGS_COUNT = 2
-CONFIG_PATH_INDEX = 1
-EXIT_SUCCESS = 0
-EXIT_FAILURE = 1
-
-
-def print_parameters(config: Dict[str, Any]) -> None:
-    """
-    Выводит все параметры конфигурации.
-    """
-    print("[CONFIG] Loaded parameters:")
-    for key, value in config.items():
-        print(f"  {key} = {value}")
-
 
 def fetch_and_display(
     config: Dict[str, Any]
 ) -> None:
     """
     Получает и выводит зависимости пакета.
+
+    Args:
+        config: Словарь с параметрами конфигурации.
     """
     package_name = config['package_name']
     version = config['version']
     registry_url = config['repository_url']
 
-    print(f"\n[FETCH] Fetching {package_name}@{version}...")
+    print(f"[FETCH] Fetching {package_name}@{version}...")
 
     package_data = fetch_package_info(
         package_name, version, registry_url
@@ -53,19 +42,18 @@ def fetch_and_display(
 
 def main() -> None:
     """Главная функция приложения."""
-    if len(sys.argv) < MIN_ARGS_COUNT:
+    if len(sys.argv) < 2:
         print("Usage: python src/main.py <config.json>")
-        sys.exit(EXIT_FAILURE)
+        sys.exit(1)
 
-    config_path = sys.argv[CONFIG_PATH_INDEX]
+    config_path = sys.argv[1]
 
     try:
         config = prepare_config(config_path)
-        print_parameters(config)
         fetch_and_display(config)
     except ConfigError as e:
         print(f"[ERROR] {e}")
-        sys.exit(EXIT_FAILURE)
+        sys.exit(1)
 
 
 if __name__ == '__main__':
