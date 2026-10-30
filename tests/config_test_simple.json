@@ -1,0 +1,8 @@
+{
+    "package_name": "A",
+    "repository_url": "https://registry.npmjs.org/",
+    "test_mode": true,
+    "test_file": "tests/test_repo_simple.txt",
+    "version": "1.0.0",
+    "output_file": "simple_graph.svg"
+}
