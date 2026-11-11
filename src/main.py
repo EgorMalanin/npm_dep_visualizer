@@ -10,12 +10,37 @@ from errors import ConfigError
 from fetcher import build_dependency_graph
 from graph import DependencyGraph
 from test_loader import load_test_graph
-
+from graph_printer import format_dependency_graph
 MIN_ARGS_COUNT = 2
 CONFIG_PATH_INDEX = 1
 EXIT_SUCCESS = 0
 EXIT_FAILURE = 1
 
+def _analyze_graph(
+    graph: DependencyGraph,
+    package_name: str
+) -> None:
+    """
+    Анализирует граф и выводит транзитивные зависимости.
+    """
+    if not graph.has_package(package_name):
+        print(f"Package '{package_name}' not found in graph")
+        return
+
+    deps, has_cycle = bfs_transitive(graph, package_name)
+    levels = bfs_with_levels(graph, package_name)
+
+    print(f"\nTransitive dependencies for '{package_name}':")
+    print(f"Total: {len(deps)}")
+
+    if deps:
+        print("Packages: " + ', '.join(sorted(deps)))
+
+    print("\nDependency graph:")
+    print(format_dependency_graph(graph, package_name))
+
+    print("\nDependency levels:")
+    print(format_bfs_result(levels, has_cycle))
 
 def run_test_mode(config: Dict[str, Any]) -> None:
     """
@@ -46,31 +71,6 @@ def run_real_mode(config: Dict[str, Any]) -> None:
     )
 
     _analyze_graph(graph, package_name)
-
-
-def _analyze_graph(
-    graph: DependencyGraph,
-    package_name: str
-) -> None:
-    """
-    Анализирует граф и выводит транзитивные зависимости.
-    """
-    if not graph.has_package(package_name):
-        print(f"Package '{package_name}' not found in graph")
-        return
-
-    deps, has_cycle = bfs_transitive(graph, package_name)
-    levels = bfs_with_levels(graph, package_name)
-
-    print(f"\nTransitive dependencies for '{package_name}':")
-    print(f"Total: {len(deps)}")
-
-    if deps:
-        print("Packages: " + ', '.join(sorted(deps)))
-
-    print("\nDependency levels:")
-    print(format_bfs_result(levels, has_cycle))
-
 
 def main() -> None:
     """Главная функция приложения."""
