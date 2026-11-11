@@ -41,4 +41,9 @@
 .\run.bat tests\config_valid.json
 .\tests\test_config.bat
 .\tests\test_fetch.bat
+python src\main.py tests\config_test_simple.json
+python src\main.py tests\config_test_cycle.json
+python src\main.py tests\config_test_complex.json
+python src\main.py config.json
+
 
