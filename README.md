@@ -46,4 +46,5 @@ python src\main.py tests\config_test_cycle.json
 python src\main.py tests\config_test_complex.json
 python src\main.py config.json
 
-
+python src\main.py tests\config_test_order.json
+python src\main.py tests\config_test_order_cycle.json

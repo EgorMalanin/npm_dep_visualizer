@@ -11,14 +11,28 @@ from fetcher import build_dependency_graph
 from graph import DependencyGraph
 from test_loader import load_test_graph
 from graph_printer import format_dependency_graph
+from topo_sort import topological_sort, format_load_order
+
 MIN_ARGS_COUNT = 2
 CONFIG_PATH_INDEX = 1
 EXIT_SUCCESS = 0
 EXIT_FAILURE = 1
 
-def _analyze_graph(
+
+def _show_load_order(
     graph: DependencyGraph,
     package_name: str
+) -> None:
+    """
+    Выводит порядок загрузки зависимостей.
+    """
+    order, has_cycle = topological_sort(graph, package_name)
+    print(format_load_order(order, has_cycle, package_name))
+
+def _analyze_graph(
+    graph: DependencyGraph,
+    package_name: str,
+    show_order: bool = False
 ) -> None:
     """
     Анализирует граф и выводит транзитивные зависимости.
@@ -41,28 +55,29 @@ def _analyze_graph(
 
     print("\nDependency levels:")
     print(format_bfs_result(levels, has_cycle))
+    if show_order:
+        print()
+        _show_load_order(graph, package_name)
 
 def run_test_mode(config: Dict[str, Any]) -> None:
-    """
-    Запускает анализ в тестовом режиме.
-    """
+    """Запускает анализ в тестовом режиме."""
     test_file = config.get('test_file', '')
     package_name = config.get('package_name', 'A')
+    show_order = config.get('show_load_order', False)
 
     if not test_file:
         raise ConfigError("test_file is required in test mode")
 
     graph = load_test_graph(test_file)
-    _analyze_graph(graph, package_name)
+    _analyze_graph(graph, package_name, show_order)
 
 
 def run_real_mode(config: Dict[str, Any]) -> None:
-    """
-    Запускает анализ в реальном режиме через npm registry.
-    """
+    """Запускает анализ в реальном режиме через npm registry."""
     package_name = config['package_name']
     version = config['version']
     registry_url = config['repository_url']
+    show_order = config.get('show_load_order', False)
 
     print(f"[BUILD] Building graph for {package_name}@{version}...")
 
@@ -70,7 +85,7 @@ def run_real_mode(config: Dict[str, Any]) -> None:
         package_name, version, registry_url
     )
 
-    _analyze_graph(graph, package_name)
+    _analyze_graph(graph, package_name, show_order)
 
 def main() -> None:
     """Главная функция приложения."""

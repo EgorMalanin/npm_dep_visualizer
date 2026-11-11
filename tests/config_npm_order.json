@@ -1,0 +1,9 @@
+{
+    "package_name": "express",
+    "repository_url": "https://registry.npmjs.org/",
+    "test_mode": false,
+    "test_file": "",
+    "version": "4.18.2",
+    "output_file": "express_order.svg",
+    "show_load_order": true
+}
