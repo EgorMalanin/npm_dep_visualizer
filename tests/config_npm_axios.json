@@ -1,0 +1,9 @@
+{
+    "package_name": "axios",
+    "repository_url": "https://registry.npmjs.org/",
+    "test_mode": false,
+    "version": "1.6.2",
+    "max_depth": 2,
+    "output_file": "tests/axios.svg",
+    "visualize": true
+}

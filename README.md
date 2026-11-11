@@ -45,6 +45,19 @@ python src\main.py tests\config_test_simple.json
 python src\main.py tests\config_test_cycle.json
 python src\main.py tests\config_test_complex.json
 python src\main.py config.json
-
+4 ЭТАП
 python src\main.py tests\config_test_order.json
 python src\main.py tests\config_test_order_cycle.json
+5 ЭТАП
+python src\main.py tests\config_npm_express.json
+python src\main.py tests\config_npm_react.json
+python src\main.py tests\config_npm_axios.json
+
+(POWERSHELL)
+d2 tests\express.d2 tests\express.svg
+d2 tests\react.d2 tests\react.svg
+d2 tests\axios.d2 tests\axios.svg
+
+start tests\express.svg
+start tests\react.svg
+start tests\axios.svg

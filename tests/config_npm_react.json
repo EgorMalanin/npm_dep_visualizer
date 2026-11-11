@@ -1,0 +1,9 @@
+{
+    "package_name": "react",
+    "repository_url": "https://registry.npmjs.org/",
+    "test_mode": false,
+    "version": "18.2.0",
+    "max_depth": 2,
+    "output_file": "tests/react.svg",
+    "visualize": true
+}
