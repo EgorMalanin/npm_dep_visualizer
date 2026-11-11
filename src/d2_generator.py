@@ -7,7 +7,6 @@ from graph import DependencyGraph
 
 def generate_d2(
     graph: DependencyGraph,
-    root_package: str
 ) -> str:
     """
     Генерирует D2-разметку для графа зависимостей.
