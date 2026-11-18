@@ -2,11 +2,12 @@
 Модуль для генерации текстового представления графа на языке D2.
 """
 from typing import List
-from graph import DependencyGraph
 
+from graph import DependencyGraph
 
 def generate_d2(
     graph: DependencyGraph,
+    root_package: str
 ) -> str:
     """
     Генерирует D2-разметку для графа зависимостей.
