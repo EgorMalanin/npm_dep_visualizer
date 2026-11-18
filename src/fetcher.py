@@ -15,7 +15,7 @@ NPM_REGISTRY_URL = 'https://registry.npmjs.org/'
 TIMEOUT_SECONDS = 10
 
 
-class _BfsContext(NamedTuple):
+class BfsContext(NamedTuple):
     """Контекст для BFS-обхода графа зависимостей."""
     max_depth: int
     registry_url: str
@@ -121,7 +121,7 @@ def _process_package(
     current_pkg: str,
     current_ver: str,
     depth: int,
-    ctx: _BfsContext
+    ctx: BfsContext
 ) -> None:
     """
     Обрабатывает один пакет: добавляет зависимости в граф.
@@ -162,7 +162,7 @@ def build_transitive_graph(
     visited: set = set()
     queue: deque = deque([(package_name, version, 0)])
 
-    ctx = _BfsContext(
+    ctx = BfsContext(
         max_depth=max_depth,
         registry_url=registry_url,
         graph=graph,
